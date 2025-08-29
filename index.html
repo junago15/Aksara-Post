@@ -1011,7 +1011,7 @@
             font-weight: 600;
             color: #1E3A8A;
             font-size: 0.875rem;
-        }
+            }
         .order-date {
             font-size: 0.75rem;
             color: #6B7280;
@@ -1174,6 +1174,31 @@
         @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
             .products-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        
+        /* PERBAIKAN TAMBAHAN: Modal struk di landscape */
+        @media (max-width: 768px) and (orientation: landscape) {
+            #receiptModal {
+                align-items: flex-start;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            #receiptModal > div {
+                width: 90%;
+                max-width: none;
+            }
+            .receipt-modal-content {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+        
+        /* PERBAIKAN TAMBAHAN: Modal struk di tablet */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .receipt-modal-content {
+                max-height: 80vh;
+                overflow-y: auto;
             }
         }
     </style>
