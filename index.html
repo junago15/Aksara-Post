@@ -670,29 +670,46 @@
                 padding: 4px;
             }
         }
-        /* PERBAIKAN BARU: Tampilan tablet potrait (768px - 1024px) */
+        /* PERBAIKAN KHUSUS: Tampilan tablet potrait (768px - 1024px) - DIPERBAIKI */
         @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            .main-container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
             .landscape-layout {
                 grid-template-columns: 1fr 1fr;
-                gap: 0.75rem;
+                gap: 1.5rem;
             }
             .products-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 0.5rem;
+                gap: 1rem;
+            }
+            .product-card {
+                max-width: 200px;
+                margin: 0 auto;
             }
             .product-image-wrapper {
-                height: 120px;
+                height: 150px;
             }
             .product-name {
-                font-size: 0.85rem;
-                min-height: 2.4em;
+                font-size: 0.95rem;
+                min-height: 2.6em;
             }
             .product-price,
             .product-stock {
-                font-size: 0.8rem;
+                font-size: 0.9rem;
             }
             .checkout-section {
-                max-height: calc(100vh - 140px);
+                max-height: calc(100vh - 160px);
+                position: sticky;
+                top: 1rem;
+            }
+            .cart-container {
+                max-height: 55vh;
+            }
+            .glass-effect {
+                padding: 1.2rem;
+                margin-bottom: 1.2rem;
             }
         }
         
@@ -896,7 +913,7 @@
             }
         }
         
-        /* PERBAIKAN 1: Notifikasi pesanan online - FULL SCREEN untuk semua perangkat */
+        /* PERBAIKAN 1: Notifikasi pesanan online - FULL SCREEN untuk semua perangkat - DIPERBAIKI SCROLL */
         .online-orders-menu {
             position: fixed;
             top: 0;
@@ -926,9 +943,9 @@
             padding: 1rem;
             background: #1E3A8A;
             color: white;
-            position: sticky;
-            top: 0;
+            position: relative;
             z-index: 10;
+            flex-shrink: 0;
         }
         .online-orders-header h3 {
             margin: 0;
@@ -941,13 +958,14 @@
             font-size: 1.2rem;
             cursor: pointer;
         }
-        /* Konten notifikasi full screen */
+        /* Konten notifikasi full screen - DIPERBAIKI SCROLL */
         .online-orders-content {
             padding: 1rem;
-            height: calc(100vh - 100px);
+            height: calc(100vh - 120px);
             overflow-y: auto;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
+            flex: 1;
         }
         /* Scrollbar styling untuk notifikasi */
         .online-orders-content::-webkit-scrollbar {
@@ -964,29 +982,7 @@
         .online-orders-content::-webkit-scrollbar-thumb:hover {
             background: rgba(30, 58, 138, 0.5);
         }
-        /* Tombol close untuk mobile */
-        .mobile-close-button {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .mobile-close-button {
-                display: block;
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-                background: #1E3A8A;
-                color: white;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 100001;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            }
-        }
-        /* Tab menu untuk notifikasi */
+        /* Tab menu untuk notifikasi - DIPERBAIKI POSISI */
         .tab-menu {
             display: flex;
             border-bottom: 1px solid rgba(30, 58, 138, 0.1);
@@ -994,6 +990,7 @@
             top: 0;
             background: white;
             z-index: 5;
+            flex-shrink: 0;
         }
         .tab-button {
             flex: 1;
@@ -1012,10 +1009,12 @@
         }
         .tab-content {
             display: none;
-            padding: 12px;
+            flex: 1;
+            overflow-y: auto;
         }
         .tab-content.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
         }
         
         /* PERBAIKAN 2: Notifikasi pop-up produk lebih responsif untuk landscape */
@@ -1157,6 +1156,28 @@
             padding: 20px;
             color: #6B7280;
             font-size: 0.9rem;
+        }
+        /* PERBAIKAN: Tombol close untuk mobile */
+        .mobile-close-button {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-close-button {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: #1E3A8A;
+                color: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 100001;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
         }
     </style>
 </head>
