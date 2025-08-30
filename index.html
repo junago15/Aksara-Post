@@ -687,10 +687,30 @@
                 padding: 4px;
             }
         }
-        /* PERBAIKAN BARU: Tampilan tablet potrait (768px - 1024px) */
-        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+        /* PERBAIKAN BARU: Tampilan tablet (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
             .landscape-layout {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 2fr 1fr;
+                gap: 0.75rem;
+            }
+            .products-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.5rem;
+            }
+            .checkout-section {
+                max-height: calc(100vh - 140px);
+            }
+            /* PERBAIKAN: Notifikasi di tablet agar bisa scroll penuh */
+            .online-orders-content {
+                max-height: 50vh !important;
+                overflow-y: auto;
+            }
+        }
+        
+        /* PERBAIKAN: Tampilan tablet landscape - 3 kolom */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+            .landscape-layout {
+                grid-template-columns: 2fr 1fr;
                 gap: 0.75rem;
             }
             .products-grid {
@@ -709,27 +729,7 @@
                 font-size: 0.8rem;
             }
             .checkout-section {
-                max-height: calc(100vh - 140px);
-            }
-        }
-        
-        /* PERBAIKAN BARU: Tampilan tablet (768px - 1024px) */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .landscape-layout {
-                grid-template-columns: 2fr 1fr;
-                gap: 0.75rem;
-            }
-            .products-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 0.5rem;
-            }
-            .checkout-section {
-                max-height: calc(100vh - 140px);
-            }
-            /* PERBAIKAN: Notifikasi di tablet agar bisa scroll penuh */
-            .online-orders-content {
-                max-height: 50vh !important;
-                overflow-y: auto;
+                max-height: 80vh;
             }
         }
         
@@ -1170,6 +1170,40 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             }
         }
+        /* PERBAIKAN: Tablet portrait - 3 kolom */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+            .products-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            /* PERBAIKAN: Lebar keranjang belanja dan pembayaran mengikuti daftar produk */
+            .landscape-layout {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .checkout-section {
+                position: static;
+                max-height: none;
+            }
+            /* PERBAIKAN: Margin kiri dan kanan lebih renggang */
+            .main-container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+        
+        /* PERBAIKAN: Modal struk di tengah untuk landscape */
+        @media (max-width: 1024px) and (orientation: landscape) {
+            #receiptModal {
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            #receiptModal > div {
+                width: 90%;
+                max-width: 400px;
+                margin: 0;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col pt-20">
@@ -1203,7 +1237,7 @@
                             <button id="mobileCloseButton" class="mobile-close-button">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <!-- Header untuk notifikasi full screen -->
+                            <!-- Header untuk mobile full screen -->
                             <div class="online-orders-header md:hidden">
                                 <h3>Notifikasi Pesanan</h3>
                                 <button class="close-notification" id="closeNotificationMobile">
@@ -1330,7 +1364,7 @@
                 </div>
                 <!-- Products Grid -->
                 <div class="glass-effect rounded-xl p-3 shadow-md">
-                    <h2 class="text-gray-800 text-sm font-semibold mb-3">Daftar Produk</h2>
+                    <h2 class="text-gray-800 text-sm font-semibold mb-3">Daftar Produк</h2>
                     <div id="productsGrid" class="products-grid">
                         <!-- Products will be loaded here -->
                     </div>
@@ -1510,7 +1544,7 @@
                 ],
                 total: 45000,
                 status: 'pending',
-                platform: 'Tokopedia'
+                platform: 'Aksara-Mart'
             },
             {
                 id: 'ONL002',
@@ -1522,7 +1556,7 @@
                 ],
                 total: 32000,
                 status: 'pending',
-                platform: 'Shopee'
+                platform: 'Aksara-Mart'
             },
             {
                 id: 'ONL003',
@@ -1534,7 +1568,7 @@
                 ],
                 total: 70000,
                 status: 'pending',
-                platform: 'GoFood'
+                platform: 'Aksara-Mart'
             }
         ];
         let cart = [];
@@ -1942,13 +1976,16 @@
             setTimeout(() => {
                 element.classList.remove('clicked');
             }, 600);
+            
+            // Cari produk untuk mendapatkan namanya
+            const product = products.find(p => p.id === productId);
+            
             // Add to cart
             addToCart(productId);
             
-            // Show notification
-            const product = products.find(p => p.id === productId);
+            // Tampilkan notifikasi
             if (product) {
-                showNotification(`"${product.name}" berhasil ditambahkan ke keranjang!`, 'success');
+                showNotification(`${product.name} ditambahkan ke keranjang`, 'success');
             }
         }
         function removeFromCart(productId) {
