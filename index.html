@@ -687,30 +687,10 @@
                 padding: 4px;
             }
         }
-        /* PERBAIKAN BARU: Tampilan tablet (768px - 1024px) */
-        @media (min-width: 769px) and (max-width: 1024px) {
+        /* PERBAIKAN BARU: Tampilan tablet potrait (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
             .landscape-layout {
-                grid-template-columns: 2fr 1fr;
-                gap: 0.75rem;
-            }
-            .products-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 0.5rem;
-            }
-            .checkout-section {
-                max-height: calc(100vh - 140px);
-            }
-            /* PERBAIKAN: Notifikasi di tablet agar bisa scroll penuh */
-            .online-orders-content {
-                max-height: 50vh !important;
-                overflow-y: auto;
-            }
-        }
-        
-        /* PERBAIKAN: Tampilan tablet landscape - 3 kolom */
-        @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
-            .landscape-layout {
-                grid-template-columns: 2fr 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 0.75rem;
             }
             .products-grid {
@@ -729,7 +709,27 @@
                 font-size: 0.8rem;
             }
             .checkout-section {
-                max-height: 80vh;
+                max-height: calc(100vh - 140px);
+            }
+        }
+        
+        /* PERBAIKAN BARU: Tampilan tablet (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .landscape-layout {
+                grid-template-columns: 2fr 1fr;
+                gap: 0.75rem;
+            }
+            .products-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.5rem;
+            }
+            .checkout-section {
+                max-height: calc(100vh - 140px);
+            }
+            /* PERBAIKAN: Notifikasi di tablet agar bisa scroll penuh */
+            .online-orders-content {
+                max-height: 50vh !important;
+                overflow-y: auto;
             }
         }
         
@@ -1011,7 +1011,7 @@
             font-weight: 600;
             color: #1E3A8A;
             font-size: 0.875rem;
-            }
+        }
         .order-date {
             font-size: 0.75rem;
             color: #6B7280;
@@ -1170,37 +1170,6 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             }
         }
-        /* PERBAIKAN: Tablet portrait - 3 kolom */
-        @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-            .products-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-        
-        /* PERBAIKAN TAMBAHAN: Modal struk di landscape */
-        @media (max-width: 768px) and (orientation: landscape) {
-            #receiptModal {
-                align-items: flex-start;
-                padding-top: 20px;
-                padding-bottom: 20px;
-            }
-            #receiptModal > div {
-                width: 90%;
-                max-width: none;
-            }
-            .receipt-modal-content {
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-        }
-        
-        /* PERBAIKAN TAMBAHAN: Modal struk di tablet */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .receipt-modal-content {
-                max-height: 80vh;
-                overflow-y: auto;
-            }
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col pt-20">
@@ -1234,7 +1203,7 @@
                             <button id="mobileCloseButton" class="mobile-close-button">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <!-- Header untuk mobile full screen -->
+                            <!-- Header untuk notifikasi full screen -->
                             <div class="online-orders-header md:hidden">
                                 <h3>Notifikasi Pesanan</h3>
                                 <button class="close-notification" id="closeNotificationMobile">
@@ -1973,16 +1942,13 @@
             setTimeout(() => {
                 element.classList.remove('clicked');
             }, 600);
-            
-            // Cari produk untuk mendapatkan namanya
-            const product = products.find(p => p.id === productId);
-            
             // Add to cart
             addToCart(productId);
             
-            // Tampilkan notifikasi
+            // Show notification
+            const product = products.find(p => p.id === productId);
             if (product) {
-                showNotification(`${product.name} ditambahkan ke keranjang`, 'success');
+                showNotification(`"${product.name}" berhasil ditambahkan ke keranjang!`, 'success');
             }
         }
         function removeFromCart(productId) {
