@@ -186,6 +186,29 @@
             margin-bottom: 0.25rem;
             margin-top: 0.25rem;
         }
+
+  /* Tambahan CSS untuk margin body */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-container {
+    max-width: 1200px;
+    margin: 4.5rem auto 1rem;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* Fix khusus tablet portrait */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .main-container {
+      max-width: 960px;   /* biar lebih lebar, tidak terlalu kecil */
+      padding-left: 10px; /* kurangi jarak */
+      padding-right: 10px;
+    }
+ }
+
         /* Perbaikan layout utama - lebih compact dengan margin yang diperkecil */
         .landscape-layout {
             display: grid;
